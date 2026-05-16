@@ -28,18 +28,18 @@ export const App: React.FC = () => {
   let visibleGoods = [...goodsFromServer];
 
   if (sortType === SortType.Alphabetically) {
-   visibleGoods = [...visibleGoods].sort((a, b) =>
+    visibleGoods = [...visibleGoods].sort((a, b) =>
       isReversed ? b.localeCompare(a) : a.localeCompare(b),
     );
   }
 
   if (sortType === SortType.Length) {
-   visibleGoods = [...visibleGoods].sort((a, b) =>
-      isReversed ? b.length - a.length : a.length - b.length
+    visibleGoods = [...visibleGoods].sort((a, b) =>
+      isReversed ? b.length - a.length : a.length - b.length,
     );
   }
 
-  if (isReversed) {
+  if (isReversed && !sortType) {
     visibleGoods = [...visibleGoods].reverse();
   }
 
@@ -50,7 +50,7 @@ export const App: React.FC = () => {
       <div className="buttons">
         <button
           type="button"
-          className="button is-info is-light is-primary"
+          className={`button is-success ${sortType === SortType.Alphabetically ? '' : 'is-light'}`}
           onClick={() => {
             setSortType(SortType.Alphabetically);
             setIsReversed(false);
@@ -61,7 +61,7 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className="button is-success is-light is-primary"
+          className={`button is-success ${sortType === SortType.Length ? '' : 'is-light'}`}
           onClick={() => {
             setSortType(SortType.Length);
             setIsReversed(false);
