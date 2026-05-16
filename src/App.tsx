@@ -15,36 +15,44 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
+enum SortType {
+  Default = '',
+  Alphabetically = 'alphabetically',
+  Length = 'length',
+}
+
 export const App: React.FC = () => {
-  const [sortType, setSortType] = useState('');
+  const [sortType, setSortType] = useState<SortType>(SortType.Default);
   const [isReversed, setIsReversed] = useState(false);
 
-  const visibleGoods = [...goodsFromServer];
+  let visibleGoods = [...goodsFromServer];
 
-  if (sortType === 'alphabetically') {
-    visibleGoods.sort((a, b) =>
+  if (sortType === SortType.Alphabetically) {
+   visibleGoods = [...visibleGoods].sort((a, b) =>
       isReversed ? b.localeCompare(a) : a.localeCompare(b),
     );
   }
 
-  if (sortType === 'length') {
-    visibleGoods.sort((a, b) => a.length - b.length);
+  if (sortType === SortType.Length) {
+   visibleGoods = [...visibleGoods].sort((a, b) =>
+      isReversed ? b.length - a.length : a.length - b.length
+    );
   }
 
   if (isReversed) {
-    visibleGoods.reverse();
+    visibleGoods = [...visibleGoods].reverse();
   }
 
-  /*const isDefaultOrder = sortType === '' && !isReversed;*/
+  /*const isDefaultOrder = sortType === SortType.Default && !isReversed;*/
 
   return (
     <div className="section content">
       <div className="buttons">
         <button
           type="button"
-          className="button is-info is-light"
+          className="button is-info is-light is-primary"
           onClick={() => {
-            setSortType('alphabetically');
+            setSortType(SortType.Alphabetically);
             setIsReversed(false);
           }}
         >
@@ -53,9 +61,9 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className="button is-success is-light"
+          className="button is-success is-light is-primary"
           onClick={() => {
-            setSortType('length');
+            setSortType(SortType.Length);
             setIsReversed(false);
           }}
         >
@@ -66,7 +74,7 @@ export const App: React.FC = () => {
           type="button"
           className={`button is-warning ${!isReversed ? 'is-light' : ''}`}
           onClick={() => {
-            setIsReversed(!isReversed);
+            setIsReversed(current => !current);
           }}
         >
           Reverse
@@ -76,7 +84,7 @@ export const App: React.FC = () => {
             type="button"
             className="button is-danger is-light"
             onClick={() => {
-              setSortType('');
+              setSortType(SortType.Default);
               setIsReversed(false);
             }}
           >
