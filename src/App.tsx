@@ -53,7 +53,7 @@ export const App: React.FC = () => {
           className={`button is-success ${sortType === SortType.Alphabetically ? '' : 'is-light'}`}
           onClick={() => {
             setSortType(SortType.Alphabetically);
-            setIsReversed(false);
+            /*setIsReversed(false);*/
           }}
         >
           Sort alphabetically
@@ -64,7 +64,7 @@ export const App: React.FC = () => {
           className={`button is-success ${sortType === SortType.Length ? '' : 'is-light'}`}
           onClick={() => {
             setSortType(SortType.Length);
-            setIsReversed(false);
+            /*setIsReversed(false);*/
           }}
         >
           Sort by length
@@ -85,7 +85,7 @@ export const App: React.FC = () => {
             className="button is-danger is-light"
             onClick={() => {
               setSortType(SortType.Default);
-              setIsReversed(false);
+              /*setIsReversed(false);*/
             }}
           >
             Reset
